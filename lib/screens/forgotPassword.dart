@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/login.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -49,10 +50,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FaIcon(
-                        FontAwesomeIcons.chevronLeft,
-                        color: Colors.white,
-                        size: 20.0,
+                      IconButton(
+                        icon: FaIcon(
+                          FontAwesomeIcons.chevronLeft,
+                          color: Colors.white,
+                          size: 20.0,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       SizedBox(
                         width: screenWidth * 0.3,
@@ -145,7 +151,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           width: screenWidth,
                           height: screenHeight * 0.08,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Send',
                               style: TextStyle(
