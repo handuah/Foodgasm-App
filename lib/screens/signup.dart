@@ -262,7 +262,14 @@ class _SignupPageState extends State<SignupPage> {
                           width: screenWidth,
                           height: screenHeight * 0.08,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Register',
                               style: TextStyle(
