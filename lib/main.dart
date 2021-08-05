@@ -15,6 +15,7 @@ class FoodGasm extends StatelessWidget {
         primarySwatch: Colors.orange,
       ),
       home: StartPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
