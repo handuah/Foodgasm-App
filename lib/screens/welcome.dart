@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/findRestaurants.dart';
 import 'package:foodgasm/screens/login.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -51,7 +52,14 @@ class _WelcomePageState extends State<WelcomePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FindRestaurants(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Skip',
                           style: TextStyle(
@@ -145,7 +153,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) => FindRestaurants(),
                           ),
                         );
                       },
