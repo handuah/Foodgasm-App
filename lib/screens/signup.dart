@@ -27,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                    'https://i.pinimg.com/originals/03/d9/d1/03d9d18c3531291c21d864bf8ebdd9fe.jpg'),
+                    'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3VzaGl8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'),
                 fit: BoxFit.fitHeight,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.6),
