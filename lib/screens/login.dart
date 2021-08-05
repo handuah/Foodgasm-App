@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodgasm/screens/forgotPassword.dart';
 import 'package:foodgasm/screens/signup.dart';
+import 'package:foodgasm/screens/welcome.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class LoginPage extends StatefulWidget {
@@ -179,7 +180,14 @@ class _LoginPageState extends State<LoginPage> {
                           width: screenWidth,
                           height: screenHeight * 0.08,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WelcomePage(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'Login',
                               style: TextStyle(
