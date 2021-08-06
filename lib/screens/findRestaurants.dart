@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/home.dart';
 import 'package:foodgasm/screens/login.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -11,6 +12,16 @@ class FindRestaurants extends StatefulWidget {
 }
 
 class _FindRestaurantsState extends State<FindRestaurants> {
+  final PageController _pageController = PageController();
+  int _selectedIndex = 0;
+
+  void _onTappedItem(int value) {
+    setState(() {
+      _selectedIndex = value;
+    });
+    _pageController.jumpToPage(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -57,11 +68,20 @@ class _FindRestaurantsState extends State<FindRestaurants> {
           ),
         ],
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.02,
-        ),
-        children: [],
+      body: PageView(
+        controller: _pageController,
+        children: [
+          Home(),
+          Home(),
+          Home(),
+          Home(),
+          Home(),
+        ],
+        onPageChanged: (page) {
+          setState(() {
+            _selectedIndex = page;
+          });
+        },
       ),
     );
   }
