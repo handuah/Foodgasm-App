@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:foodgasm/screens/findRestaurants.dart';
-import 'package:foodgasm/screens/login.dart';
-import 'package:foodgasm/screens/models/categoryFood.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+// import 'package:foodgasm/screens/findRestaurants.dart';
+// import 'package:foodgasm/screens/login.dart';
+
+// import 'package:foodgasm/screens/models/categoryFood.dart';
+import 'package:foodgasm/screens/jsonData/foodCategoryData.dart';
 
 class Home extends StatefulWidget {
   // const Home({ Key? key }) : super(key: key);
@@ -13,14 +16,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<CategoryFood> foodCategory = [
-    CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
-        '#DB6B7B', '#D89063', 'Chinese'),
-    CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
-        '#DB6B7B', '#D89063', 'Chinese'),
-    CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
-        '#DB6B7B', '#D89063', 'Chinese'),
-  ];
+  // final List<CategoryFood> foodCategory = [
+  //   CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
+  //       '#DB6B7B', '#D89063', 'Chinese'),
+  //   CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
+  //       '#DB6B7B', '#D89063', 'Chinese'),
+  //   CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
+  //       '#DB6B7B', '#D89063', 'Chinese'),
+  // ];
+
+// initializzing food category data
+  var foodCategoryData = FoodCategoryData.getData;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -163,7 +170,7 @@ class _HomeState extends State<Home> {
                         width: screenWidth * 0.02,
                       ), //add a separater to the list
                   scrollDirection: Axis.horizontal,
-                  itemCount: foodCategory.length,
+                  itemCount: foodCategoryData.length,
                   itemBuilder: (BuildContext ctx, int index) =>
                       categoryCard(ctx, index)),
             ),
@@ -180,7 +187,7 @@ class _HomeState extends State<Home> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    final categories = foodCategory[index];
+    // final categories = foodCategory[index];
     return Material(
       elevation: 4.0,
       borderRadius: BorderRadius.circular(10.0),
@@ -194,7 +201,7 @@ class _HomeState extends State<Home> {
               borderRadius: BorderRadius.circular(10.0),
               image: DecorationImage(
                 image: NetworkImage(
-                  categories.imagePath,
+                  foodCategoryData[index]['imagePath'],
                   // 'https://media.timeout.com/images/105441129/image.jpg',
                 ),
                 fit: BoxFit.cover,
@@ -209,15 +216,19 @@ class _HomeState extends State<Home> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  HexColor(categories.topColor).withOpacity(0.7),
-                  HexColor(categories.bottomColor).withOpacity(0.7),
+                  HexColor(
+                    foodCategoryData[index]['topColor'],
+                  ).withOpacity(0.7),
+                  HexColor(
+                    foodCategoryData[index]['bottomColor'],
+                  ).withOpacity(0.7),
                 ],
               ),
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Center(
               child: Text(
-                categories.categoryName,
+                foodCategoryData[index]['categoryName'],
                 // 'Chinese',
                 style: TextStyle(
                   color: Colors.white,
