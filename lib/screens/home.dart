@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodgasm/screens/findRestaurants.dart';
 import 'package:foodgasm/screens/login.dart';
+import 'package:foodgasm/screens/models/categoryFood.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class Home extends StatefulWidget {
@@ -12,6 +13,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final List<CategoryFood> foodCategory = [
+    CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
+        '#DB6B7B', '#D89063', 'Chinese'),
+    CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
+        '#DB6B7B', '#D89063', 'Chinese'),
+    CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
+        '#DB6B7B', '#D89063', 'Chinese'),
+  ];
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -149,67 +158,77 @@ class _HomeState extends State<Home> {
             Container(
               height: screenHeight * 0.15,
               width: screenWidth,
-              // color: Colors.red,
-              child: ListView(
-                padding: EdgeInsets.only(
-                  bottom: screenHeight * 0.01,
-                ),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Material(
-                    elevation: 4.0,
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Stack(
-                      children: [
-                        Container(
-                          height: screenHeight * 0.15,
-                          width: screenWidth * 0.3,
-                          decoration: BoxDecoration(
-                            // color: Colors.green,
-                            borderRadius: BorderRadius.circular(10.0),
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                'https://media.timeout.com/images/105441129/image.jpg',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: screenHeight * 0.15,
-                          width: screenWidth * 0.3,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                HexColor('#DB6B7B').withOpacity(0.7),
-                                HexColor('#D89063').withOpacity(0.7),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Chinese',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              child: ListView.separated(
+                  separatorBuilder: (BuildContext ctx, int index) => SizedBox(
+                        width: screenWidth * 0.02,
+                      ), //add a separater to the list
+                  scrollDirection: Axis.horizontal,
+                  itemCount: foodCategory.length,
+                  itemBuilder: (BuildContext ctx, int index) =>
+                      categoryCard(ctx, index)),
             ),
+            // ),
           ],
         ),
       ),
       // ),
+    );
+  }
+
+// Category Cards Widget
+  Widget categoryCard(BuildContext context, int index) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    final categories = foodCategory[index];
+    return Material(
+      elevation: 4.0,
+      borderRadius: BorderRadius.circular(10.0),
+      child: Stack(
+        children: [
+          Container(
+            height: screenHeight * 0.15,
+            width: screenWidth * 0.3,
+            decoration: BoxDecoration(
+              // color: Colors.green,
+              borderRadius: BorderRadius.circular(10.0),
+              image: DecorationImage(
+                image: NetworkImage(
+                  categories.imagePath,
+                  // 'https://media.timeout.com/images/105441129/image.jpg',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Container(
+            height: screenHeight * 0.15,
+            width: screenWidth * 0.3,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  HexColor(categories.topColor).withOpacity(0.7),
+                  HexColor(categories.bottomColor).withOpacity(0.7),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Center(
+              child: Text(
+                categories.categoryName,
+                // 'Chinese',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
