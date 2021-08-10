@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/jsonData/topRestaurantsData.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // import 'package:foodgasm/screens/findRestaurants.dart';
@@ -27,6 +28,9 @@ class _HomeState extends State<Home> {
 
 // initializzing food category data
   var foodCategoryData = FoodCategoryData.getData;
+
+  // initializzing top restaurants data
+  var topRestaurantsData = TopRestaurantsData.getRestaurants;
 
   @override
   Widget build(BuildContext context) {
@@ -123,19 +127,18 @@ class _HomeState extends State<Home> {
               height: screenHeight * 0.32,
               width: screenWidth,
               // color: Colors.red,
-              child: ListView(
-                padding: EdgeInsets.only(
-                  bottom: screenHeight * 0.01,
-                ),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  RatedRestaurantCard(),
-                  SizedBox(
-                    width: screenWidth * 0.02,
+              child: ListView.separated(
+                  padding: EdgeInsets.only(
+                    bottom: screenHeight * 0.01,
                   ),
-                  RatedRestaurantCard(),
-                ],
-              ),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      SizedBox(
+                        width: screenWidth * 0.04,
+                      ), //add a separater to the list
+                  scrollDirection: Axis.horizontal,
+                  itemCount: topRestaurantsData.length,
+                  itemBuilder: (BuildContext context, int topResIndex) =>
+                      topRestaurants(context, topResIndex)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -242,18 +245,9 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-}
 
-class RatedRestaurantCard extends StatefulWidget {
-  // const RatedRestaurantCard({ Key? key }) : super(key: key);
-
-  @override
-  _RatedRestaurantCardState createState() => _RatedRestaurantCardState();
-}
-
-class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
-  @override
-  Widget build(BuildContext context) {
+  // TOP RESTAURANT WIDGET
+  Widget topRestaurants(BuildContext context, int topResIndex) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Material(
@@ -284,7 +278,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                     ),
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://media.timeout.com/images/105441129/image.jpg',
+                        topRestaurantsData[topResIndex]['imagePath'],
+                        // 'https://media.timeout.com/images/105441129/image.jpg',
                       ),
                       fit: BoxFit.fitWidth,
                     ),
@@ -320,7 +315,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                           ),
                           child: Center(
                             child: Text(
-                              'OPEN',
+                              topRestaurantsData[topResIndex]['openState'],
+                              // 'OPEN',
                               style: TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold),
@@ -354,7 +350,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                                 width: screenWidth * 0.01,
                               ),
                               Text(
-                                '3.5',
+                                topRestaurantsData[topResIndex]['ratings'],
+                                // '3.5',
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
@@ -394,7 +391,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Achimota Mall',
+                          topRestaurantsData[topResIndex]['restaurantName'],
+                          // 'Achimota Mall',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -413,7 +411,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                           ),
                           child: Center(
                             child: Text(
-                              'Chinese',
+                              topRestaurantsData[topResIndex]['country'],
+                              // 'Chinese',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -434,7 +433,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                           ),
                           child: Center(
                             child: Text(
-                              '1.2km',
+                              topRestaurantsData[topResIndex]['distance'],
+                              // '1.2km',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -453,7 +453,8 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          '8 Sir Charles Quist Road, Osu, Accra',
+                          topRestaurantsData[topResIndex]['address'],
+                          // '8 Sir Charles Quist Road, Osu, Accra',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.grey.shade500,
@@ -473,3 +474,233 @@ class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
     );
   }
 }
+
+// class RatedRestaurantCard extends StatefulWidget {
+//   // const RatedRestaurantCard({ Key? key }) : super(key: key);
+
+//   @override
+//   _RatedRestaurantCardState createState() => _RatedRestaurantCardState();
+// }
+
+// class _RatedRestaurantCardState extends State<RatedRestaurantCard> {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Material(
+//       elevation: 4.0,
+//       borderRadius: BorderRadius.circular(10.0),
+//       child: Container(
+//         height: screenHeight * 0.3,
+//         width: screenWidth * 0.8,
+//         // color: Colors.green,
+//         decoration: BoxDecoration(
+//           // color: Colors.green,
+//           borderRadius: BorderRadius.circular(10.0),
+//         ),
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.start,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Stack(
+//               children: [
+//                 Container(
+//                   height: screenHeight * 0.21,
+//                   width: screenWidth * 0.8,
+//                   decoration: BoxDecoration(
+//                     color: Colors.yellow,
+//                     borderRadius: BorderRadius.only(
+//                       topLeft: Radius.circular(10.0),
+//                       topRight: Radius.circular(10.0),
+//                     ),
+//                     image: DecorationImage(
+//                       image: NetworkImage(
+//                         'https://media.timeout.com/images/105441129/image.jpg',
+//                       ),
+//                       fit: BoxFit.fitWidth,
+//                     ),
+//                   ),
+//                 ),
+//                 Container(
+//                   height: screenHeight * 0.21,
+//                   width: screenWidth * 0.8,
+//                   decoration: BoxDecoration(
+//                     color: Colors.black.withOpacity(0.1),
+//                     borderRadius: BorderRadius.only(
+//                       topLeft: Radius.circular(10.0),
+//                       topRight: Radius.circular(10.0),
+//                     ),
+//                   ),
+//                 ),
+//                 Positioned(
+//                   top: screenHeight * 0.02,
+//                   left: screenWidth * 0.04,
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       Material(
+//                         borderRadius: BorderRadius.circular(5.0),
+//                         elevation: 4.0,
+//                         child: Container(
+//                           width: screenWidth * 0.15,
+//                           height: screenHeight * 0.03,
+//                           decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.circular(5.0),
+//                             color: Colors.white,
+//                           ),
+//                           child: Center(
+//                             child: Text(
+//                               'OPEN',
+//                               style: TextStyle(
+//                                   color: Colors.green,
+//                                   fontWeight: FontWeight.bold),
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                       SizedBox(
+//                         width: screenWidth * 0.43,
+//                       ),
+//                       Material(
+//                         borderRadius: BorderRadius.circular(5.0),
+//                         elevation: 4.0,
+//                         child: Container(
+//                           width: screenWidth * 0.15,
+//                           height: screenHeight * 0.03,
+//                           decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.circular(5.0),
+//                             color: Colors.white,
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             crossAxisAlignment: CrossAxisAlignment.center,
+//                             children: [
+//                               Icon(
+//                                 Icons.star,
+//                                 color: Colors.yellow,
+//                                 size: 18.0,
+//                               ),
+//                               SizedBox(
+//                                 width: screenWidth * 0.01,
+//                               ),
+//                               Text(
+//                                 '3.5',
+//                                 style: TextStyle(
+//                                   color: Colors.grey,
+//                                   fontWeight: FontWeight.bold,
+//                                   fontSize: 14.0,
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             Container(
+//               height: screenHeight * 0.09,
+//               width: screenWidth * 0.8,
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 borderRadius: BorderRadius.only(
+//                   bottomLeft: Radius.circular(10.0),
+//                   bottomRight: Radius.circular(10.0),
+//                 ),
+//               ),
+//               child: Padding(
+//                 padding: EdgeInsets.symmetric(
+//                   vertical: screenHeight * 0.01,
+//                   horizontal: screenWidth * 0.04,
+//                 ),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: [
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: [
+//                         Text(
+//                           'Achimota Mall',
+//                           style: TextStyle(
+//                             color: Colors.black,
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 15.0,
+//                           ),
+//                         ),
+//                         SizedBox(
+//                           width: screenWidth * 0.08,
+//                         ),
+//                         Container(
+//                           height: screenHeight * 0.03,
+//                           width: screenWidth * 0.14,
+//                           decoration: BoxDecoration(
+//                             color: Colors.purple,
+//                             borderRadius: BorderRadius.circular(10.0),
+//                           ),
+//                           child: Center(
+//                             child: Text(
+//                               'Chinese',
+//                               style: TextStyle(
+//                                 color: Colors.white,
+//                                 fontWeight: FontWeight.bold,
+//                                 fontSize: 12.0,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         SizedBox(
+//                           width: screenWidth * 0.08,
+//                         ),
+//                         Container(
+//                           height: screenHeight * 0.03,
+//                           width: screenWidth * 0.14,
+//                           decoration: BoxDecoration(
+//                             color: HexColor('#FF4709'),
+//                             borderRadius: BorderRadius.circular(10.0),
+//                           ),
+//                           child: Center(
+//                             child: Text(
+//                               '1.2km',
+//                               style: TextStyle(
+//                                 color: Colors.white,
+//                                 fontWeight: FontWeight.bold,
+//                                 fontSize: 12.0,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                     SizedBox(
+//                       height: screenHeight * 0.01,
+//                     ),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: [
+//                         Text(
+//                           '8 Sir Charles Quist Road, Osu, Accra',
+//                           textAlign: TextAlign.left,
+//                           style: TextStyle(
+//                             color: Colors.grey.shade500,
+//                             fontSize: 14.0,
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
