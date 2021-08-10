@@ -17,7 +17,7 @@ class FoodCategoryData {
     },
     {
       "imagePath":
-          "https://lh3.googleusercontent.com/proxy/R1QZHTaOL1EShPUcE5aS1KUSt35B8sJal90M8U3V90o2tytQrTG7xgvth7vaBoPVbaB2eirQptiQRXTCpTbbNlCiGWo_NWbnfDHvQjHy2BkwdAFPKHOdq7DdznycyltDE0LJeYmDAXS_aZb6hJE",
+          "https://www.matchingfoodandwine.com/files/blogattachments/top/korean-pork-dish@2x.jpg",
       "topColor": "#2384A8",
       "bottomColor": "#2A35AB",
       "categoryName": "Korean",
