@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/jsonData/friendsData.dart';
 import 'package:foodgasm/screens/jsonData/topRestaurantsData.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -17,20 +18,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // final List<CategoryFood> foodCategory = [
-  //   CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
-  //       '#DB6B7B', '#D89063', 'Chinese'),
-  //   CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
-  //       '#DB6B7B', '#D89063', 'Chinese'),
-  //   CategoryFood('https://media.timeout.com/images/105441129/image.jpg',
-  //       '#DB6B7B', '#D89063', 'Chinese'),
-  // ];
-
 // initializzing food category data
   var foodCategoryData = FoodCategoryData.getData;
 
   // initializzing top restaurants data
   var topRestaurantsData = TopRestaurantsData.getRestaurants;
+
+  // initializzing friendsImage data
+  var friendsAvatarData = SuggestedFriends.getFriendsImages;
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +172,50 @@ class _HomeState extends State<Home> {
                   itemBuilder: (BuildContext ctx, int index) =>
                       categoryCard(ctx, index)),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Friends Suggestions',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'See All (44)',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             // ),
+            Container(
+              height: screenHeight * 0.07,
+              width: screenWidth,
+              // color: Colors.green,
+              child: ListView.separated(
+                separatorBuilder:
+                    (BuildContext friendsContext, int friendsIndex) => SizedBox(
+                  width: screenWidth * 0.02,
+                ), //add a separater to the list
+                scrollDirection: Axis.horizontal,
+                itemCount: friendsAvatarData.length,
+                itemBuilder: (BuildContext friendsContext, int friendsIndex) =>
+                    friendsAvatar(friendsContext, friendsIndex),
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
           ],
         ),
       ),
@@ -473,7 +511,19 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  // SUGGESTED FRIENDS WIDGET
+  Widget friendsAvatar(BuildContext friendContext, int friendsIndex) {
+    return CircleAvatar(
+      maxRadius: 30.0,
+      backgroundImage: NetworkImage(
+        friendsAvatarData[friendsIndex]['imageUrl'],
+        // 'https://i1.sndcdn.com/artworks-CNtsO4Dkz1iV34NA-F4m70A-t500x500.jpg',
+      ),
+    );
+  }
 }
+
 
 // class RatedRestaurantCard extends StatefulWidget {
 //   // const RatedRestaurantCard({ Key? key }) : super(key: key);
