@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/filterPage.dart';
 import 'package:foodgasm/screens/jsonData/friendsData.dart';
 import 'package:foodgasm/screens/jsonData/topRestaurantsData.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -78,10 +79,18 @@ class _HomeState extends State<Home> {
                       vertical: screenHeight * 0.018,
                       horizontal: screenWidth * 0.02,
                     ),
-                    child: FaIcon(
-                      FontAwesomeIcons.filter,
-                      color: Colors.grey,
-                      size: 18.0,
+                    child: GestureDetector(
+                      child: FaIcon(
+                        FontAwesomeIcons.filter,
+                        color: Colors.grey,
+                        size: 18.0,
+                      ),
+                      onTap: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FilterPage(),
+                          ),
+                        );},
                     ),
                   ),
                 ),
