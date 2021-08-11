@@ -197,6 +197,9 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
             // ),
             Container(
               height: screenHeight * 0.07,
