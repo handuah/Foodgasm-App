@@ -42,12 +42,70 @@ class _FilterPageState extends State<FilterPage> {
   bool select_Arab = false;
   bool select_Ame = false;
 
+  double sliderVal = 0;
+
+  bool star1Tap = false;
+  bool star2Tap = false;
+  bool star3Tap = false;
+  bool star4Tap = false;
+  bool star5Tap = false;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      extendBody: true,
       backgroundColor: Colors.white,
+      bottomSheet: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: screenHeight * 0.08,
+            width: screenWidth / 2.0,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                'Reset',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: HexColor('#FF4709'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: screenHeight * 0.08,
+            width: screenWidth / 2.0,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                'Apply',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: HexColor('#FF4709'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth * 0.02,
@@ -133,6 +191,69 @@ class _FilterPageState extends State<FilterPage> {
                 CategoryBtn(select_Kor, "Korean"),
               ],
             ),
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
+            Center(
+              child: Text(
+                'Distance',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
+            Slider(
+              value: sliderVal,
+              onChanged: (double currentVal) {
+                setState(() {
+                  sliderVal = currentVal;
+                });
+              },
+              label: "Distance is: ${sliderVal.round().toString()}",
+              min: 0,
+              max: 100,
+              activeColor: Colors.orange,
+              inactiveColor: Colors.grey.withOpacity(0.2),
+            ),
+            Center(
+              child: Text(
+                'Ratings',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
+            Center(
+              child: Container(
+                height: screenHeight * 0.08,
+                width: screenWidth * 0.8,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    RatingStars(star1Tap),
+                    RatingStars(star2Tap),
+                    RatingStars(star3Tap),
+                    RatingStars(star4Tap),
+                    RatingStars(star5Tap),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -196,6 +317,35 @@ class _CategoryBtnState extends State<CategoryBtn> {
             side: BorderSide(color: Colors.grey),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// RATINGS STARS
+class RatingStars extends StatefulWidget {
+  // const RatingStars({ Key? key }) : super(key: key);
+  bool tapState = false;
+
+  RatingStars(this.tapState);
+
+  @override
+  _RatingStarsState createState() => _RatingStarsState();
+}
+
+class _RatingStarsState extends State<RatingStars> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.tapState = !widget.tapState;
+        });
+      },
+      child: Icon(
+        Icons.star,
+        color: widget.tapState ? HexColor('#FFCC01') : Colors.grey,
+        size: 50.0,
       ),
     );
   }
