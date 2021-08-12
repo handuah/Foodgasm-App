@@ -23,6 +23,15 @@ class _FilterPageState extends State<FilterPage> {
   final selectedStates = [true, false, false, true, false, false];
 
   bool selected = true;
+
+  pressedColor(bool selector) {
+    if (selector == true) {
+      return Colors.white;
+    } else if (selector == false) {
+      return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -122,7 +131,8 @@ class _FilterPageState extends State<FilterPage> {
                         text,
                         style: TextStyle(
                           fontSize: 18.0,
-                          color: selected ? Colors.white : Colors.grey,
+                          color: pressedColor(selected),
+                          // color: selected ? Colors.white : Colors.grey,
                         ),
                       ),
                       style: TextButton.styleFrom(
