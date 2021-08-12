@@ -11,26 +11,36 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
-  final categoryNames = [
-    "Italian",
-    "Indian",
-    "Korean",
-    "Ghanaian",
-    "Nigerian",
-    "Lebanese"
-  ];
+  // final categoryNames = [
+  //   "Italian",
+  //   "Indian",
+  //   "Korean",
+  //   "Ghanaian",
+  //   "Nigerian",
+  //   "Lebanese"
+  // ];
 
-  final selectedStates = [true, false, false, true, false, false];
+  // final selectedStates = [true, false, false, true, false, false];
 
-  bool selected = true;
+  // bool selected = false;
 
-  pressedColor(bool selector) {
-    if (selector == true) {
-      return Colors.white;
-    } else if (selector == false) {
-      return Colors.grey;
-    }
-  }
+  // pressedColor(bool selector) {
+  //   if (selector == true) {
+  //     return Colors.white;
+  //   } else if (selector == false) {
+  //     return Colors.grey;
+  //   }
+  // }
+
+  bool select_Ind = false;
+  bool select_Kor = false;
+  bool select_Chin = false;
+  bool select_Gha = false;
+  bool select_Jap = false;
+  bool select_Ita = false;
+  bool select_Ger = false;
+  bool select_Arab = false;
+  bool select_Ame = false;
 
   @override
   Widget build(BuildContext context) {
@@ -112,39 +122,15 @@ class _FilterPageState extends State<FilterPage> {
               spacing: screenWidth * 0.03,
               runSpacing: screenHeight * 0.03,
               children: [
-                // loop to build textbuttons
-                for (var text in categoryNames)
-                  SizedBox(
-                    height: screenHeight * 0.07,
-                    width: screenWidth * 0.3,
-                    child: TextButton(
-                      onPressed: () {
-                        for (var selections in selectedStates)
-                          setState(() {
-                            selected = selections;
-                          });
-                        // setState(() {
-                        //   selected = !selected;
-                        // });
-                      },
-                      child: Text(
-                        text,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: pressedColor(selected),
-                          // color: selected ? Colors.white : Colors.grey,
-                        ),
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor:
-                            selected ? Colors.orange : Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                  ),
+                CategoryBtn(select_Ind, "Indian"),
+                CategoryBtn(select_Kor, "Korean"),
+                CategoryBtn(select_Chin, "Chinese"),
+                CategoryBtn(select_Gha, "Ghanaian"),
+                CategoryBtn(select_Jap, "Japan"),
+                CategoryBtn(select_Ita, "Italian"),
+                CategoryBtn(select_Ger, "German"),
+                CategoryBtn(select_Arab, "Arabian"),
+                CategoryBtn(select_Kor, "Korean"),
               ],
             ),
           ],
@@ -167,4 +153,50 @@ class _FilterPageState extends State<FilterPage> {
   //     ),
   //   );
   // }
+}
+
+// CATEGORY BUTTONS
+class CategoryBtn extends StatefulWidget {
+  // const CategoryBtn({ Key? key }) : super(key: key);
+  bool selectedName;
+  final String buttonName;
+
+  CategoryBtn(this.selectedName, this.buttonName);
+
+  @override
+  _CategoryBtnState createState() => _CategoryBtnState();
+}
+
+class _CategoryBtnState extends State<CategoryBtn> {
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return SizedBox(
+      height: screenHeight * 0.07,
+      width: screenWidth * 0.3,
+      child: TextButton(
+        onPressed: () {
+          setState(() {
+            widget.selectedName = !widget.selectedName;
+          });
+        },
+        child: Text(
+          widget.buttonName,
+          // "Indian",
+          style: TextStyle(
+            fontSize: 18.0,
+            color: widget.selectedName ? Colors.white : Colors.grey,
+          ),
+        ),
+        style: TextButton.styleFrom(
+          backgroundColor: widget.selectedName ? Colors.orange : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Colors.grey),
+          ),
+        ),
+      ),
+    );
+  }
 }
