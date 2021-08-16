@@ -95,70 +95,75 @@ class _CategoriesState extends State<Categories> {
       ),
     );
   }
-}
 
-// CATEGORY CARDS LIST
-Widget countryCategory(BuildContext categContext, int catIndex) {
-  double screenWidth = MediaQuery.of(categContext).size.width;
-  double screenHeight = MediaQuery.of(categContext).size.height;
-  return Material(
-    borderRadius: BorderRadius.circular(10.0),
-    elevation: 2.0,
-    child: Stack(
-      children: [
-        Container(
-          height: screenHeight * 0.12,
-          width: screenWidth,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(10.0),
-            image: DecorationImage(
-              image: NetworkImage(
-                'https://media.timeout.com/images/105441129/image.jpg',
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Container(
-          height: screenHeight * 0.12,
-          width: screenWidth,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(10.0),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                HexColor('#DB6B7B').withOpacity(0.7),
-                HexColor('#D89063').withOpacity(0.7),
-              ],
-            ),
-          ),
-          child: Center(
-            child: Text(
-              'Korean',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 26.0,
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          right: screenWidth * 0.04,
-          top: screenHeight * 0.02,
-          child: Container(
-            height: screenHeight * 0.08,
-            width: screenWidth * 0.02,
+  // CATEGORY CARDS LIST
+  Widget countryCategory(BuildContext categContext, int catIndex) {
+    double screenWidth = MediaQuery.of(categContext).size.width;
+    double screenHeight = MediaQuery.of(categContext).size.height;
+    return Material(
+      borderRadius: BorderRadius.circular(10.0),
+      elevation: 2.0,
+      child: Stack(
+        children: [
+          Container(
+            height: screenHeight * 0.12,
+            width: screenWidth,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.green,
               borderRadius: BorderRadius.circular(10.0),
+              image: DecorationImage(
+                image: NetworkImage(
+                  countryCategoryCard[catIndex]['imagePath'],
+                  // 'https://media.timeout.com/images/105441129/image.jpg',
+                ),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
+          Container(
+            height: screenHeight * 0.12,
+            width: screenWidth,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(10.0),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  HexColor(
+                    countryCategoryCard[catIndex]['topColor'],
+                  ).withOpacity(0.7),
+                  HexColor(
+                    countryCategoryCard[catIndex]['bottomColor'],
+                  ).withOpacity(0.7),
+                ],
+              ),
+            ),
+            child: Center(
+              child: Text(
+                countryCategoryCard[catIndex]['categoryName'],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26.0,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: screenWidth * 0.04,
+            top: screenHeight * 0.02,
+            child: Container(
+              height: screenHeight * 0.08,
+              width: screenWidth * 0.02,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
