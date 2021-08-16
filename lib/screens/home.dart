@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:foodgasm/screens/categories.dart';
 import 'package:foodgasm/screens/filterPage.dart';
 import 'package:foodgasm/screens/jsonData/friendsData.dart';
 import 'package:foodgasm/screens/jsonData/topRestaurantsData.dart';
@@ -167,7 +168,14 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Categories(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'See All (10)',
                     style: TextStyle(
