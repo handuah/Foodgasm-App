@@ -35,5 +35,19 @@ class FoodCategoryData {
       "bottomColor": "#9F64E6",
       "categoryName": "Mexican",
     },
+    {
+      "imagePath":
+          "https://www.mundoasiatours.com/wp-content/uploads/2019/05/Thai-food-Tom-Yam-Kung.jpg",
+      "topColor": "#39D8A0",
+      "bottomColor": "#2D7EAA",
+      "categoryName": "Thai",
+    },
+    {
+      "imagePath":
+          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/content6380.jpg",
+      "topColor": "#F49C1E",
+      "bottomColor": "#D54FC4",
+      "categoryName": "Arabian",
+    },
   ];
 }
