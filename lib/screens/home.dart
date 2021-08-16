@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:foodgasm/screens/filterPage.dart';
 import 'package:foodgasm/screens/jsonData/friendsData.dart';
 import 'package:foodgasm/screens/jsonData/topRestaurantsData.dart';
+import 'package:foodgasm/screens/topRatedRestaurants.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // import 'package:foodgasm/screens/findRestaurants.dart';
@@ -85,12 +86,14 @@ class _HomeState extends State<Home> {
                         color: Colors.grey,
                         size: 18.0,
                       ),
-                      onTap: () {Navigator.push(
+                      onTap: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => FilterPage(),
                           ),
-                        );},
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -112,7 +115,14 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TopRatedRestaurants(),
+                      ),
+                    );
+                  },
                   child: Text(
                     'See All (30)',
                     style: TextStyle(
